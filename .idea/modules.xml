@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file:///media/data/Dev/AndroidProjects/MyPlaces/MyPlaces.iml" filepath="/media/data/Dev/AndroidProjects/MyPlaces/MyPlaces.iml" />
+      <module fileurl="file:///media/data/Dev/AndroidProjects/MyPlaces/app/app.iml" filepath="/media/data/Dev/AndroidProjects/MyPlaces/app/app.iml" />
+    </modules>
+  </component>
+</project>
