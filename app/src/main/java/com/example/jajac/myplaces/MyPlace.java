@@ -7,6 +7,9 @@ package com.example.jajac.myplaces;
 public class MyPlace {
     String name;
     String description;
+    String longitude;
+    String latitude;
+    long ID;
 
     public MyPlace(String name, String desc) {
         this.name = name;
@@ -25,12 +28,36 @@ public class MyPlace {
         return description;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String desc) {
         this.description = desc;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
     }
 
     @Override
