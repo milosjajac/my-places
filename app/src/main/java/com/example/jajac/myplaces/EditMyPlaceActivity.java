@@ -109,13 +109,22 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 String name = etName.getText().toString();
                 EditText etDesc = (EditText)findViewById(R.id.editmyplace_desc_edit);
                 String desc = etDesc.getText().toString();
+                EditText etLon = (EditText)findViewById(R.id.editmyplace_long_edit);
+                String lon = etLon.getText().toString();
+                EditText etLat = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                String lat = etLat.getText().toString();
                 if (!editMode) {
                     MyPlace place = new MyPlace(name, desc);
+                    place.setLatitude(lat);
+                    place.setLongitude(lon);
                     MyPlacesData.getInstance().addNewPlace(place);
                 } else {
                     MyPlace place = MyPlacesData.getInstance().getPlace(position);
                     place.setName(name);
                     place.setDescription(desc);
+                    place.setLatitude(lat);
+                    place.setLongitude(lon);
+                    MyPlacesData.getInstance().updatePlace(place);
                 }
                 setResult(Activity.RESULT_OK);
                 finish();

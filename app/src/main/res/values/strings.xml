@@ -18,6 +18,9 @@
     <string name="editmyplace_name_label">Name</string>
     <string name="editmyplace_desc_label">Description</string>
     <string name="editmyplace_cancel_label">Cancel</string>
+    <string name="editmyplace_lat_label">Latitude</string>
+    <string name="editmyplace_long_label">Longitude</string>
+    <string name="editmyplace_location_label">Get location</string>
 
     <string name="title_activity_view_my_place">View place</string>
     <string name="viewmyplace_finished_label">OK</string>

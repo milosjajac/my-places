@@ -33,19 +33,58 @@
         android:layout_height="wrap_content"
         android:inputType="text" />
 
-    <TableRow
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:stretchColumns="*">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editmyplace_lat_label" />
+                <EditText
+                    android:id="@+id/editmyplace_lat_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editmyplace_long_label" />
+                <EditText
+                    android:id="@+id/editmyplace_long_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/editmyplace_location_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/editmyplace_location_label"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/editmyplace_finished_button"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/editmyplace_finished_button"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/editmyplace_cancel_button"
-            android:layout_weight="1"
-            android:text="@string/editmyplace_cancel_label" />
-    </TableRow>
+            <Button
+                android:id="@+id/editmyplace_cancel_button"
+                android:layout_weight="1"
+                android:text="@string/editmyplace_cancel_label" />
+        </TableRow>
+    </TableLayout>
 
 
 </LinearLayout>
