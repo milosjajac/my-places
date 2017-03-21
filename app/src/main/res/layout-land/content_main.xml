@@ -19,26 +19,26 @@
         android:id="@+id/textView" />
 
     <ImageView
-        android:id="@+id/img_elfak"
+        android:id="@+id/elfak_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/elfak"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintRight_toLeftOf="@+id/img_pin"
+        app:layout_constraintRight_toLeftOf="@+id/app_logo_image_view"
         android:layout_marginRight="0dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed" />
 
     <ImageView
-        android:id="@+id/img_pin"
+        android:id="@+id/app_logo_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/pin"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintLeft_toRightOf="@+id/img_elfak"
+        app:layout_constraintLeft_toRightOf="@+id/elfak_image_view"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 

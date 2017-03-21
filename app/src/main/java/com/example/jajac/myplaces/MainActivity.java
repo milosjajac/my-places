@@ -1,5 +1,6 @@
 package com.example.jajac.myplaces;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,9 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    static int NEW_PLACE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.show_map_item) {
             Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.new_place_item) {
-            Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, EditMyPlaceActivity.class);
+            startActivityForResult(i, NEW_PLACE);
         } else if (id == R.id.my_places_item) {
             Intent i = new Intent(this, MyPlacesList.class);
             startActivity(i);
@@ -49,5 +55,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Toast.makeText(this, "New place added!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

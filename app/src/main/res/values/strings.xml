@@ -5,11 +5,20 @@
     <string name="action_my_places">My places</string>
     <string name="action_about">About</string>
 
-    <string name="about_text">
-        <i>My places</i> is the application that will help you remember characteristics and locations of your favorite places.
-        It will be able to show your places on map and enable you to share the with your friends. Each week this application will be better and better
-        and you will earn <i>points</i> from your teaching assistant.
+    <string name="about_text"><i>My places</i> is the application that will help you remember
+        characteristics and locations of your favorite places. It will be able to show your places
+        on map and enable you to share the with your friends. Each week this application
+        will be better and better and you will earn <i>points</i> from your teaching assistant.
     </string>
-    <string name="ok">Ok</string>
-    <string name="title_activity_my_places_list">MyPlacesList</string>
+    <string name="ok">OK</string>
+
+    <string name="title_activity_my_places_list">My places list</string>
+
+    <string name="title_activity_edit_my_place">Edit place</string>
+    <string name="editmyplace_name_label">Name</string>
+    <string name="editmyplace_desc_label">Description</string>
+    <string name="editmyplace_cancel_label">Cancel</string>
+
+    <string name="title_activity_view_my_place">View place</string>
+    <string name="viewmyplace_finished_label">OK</string>
 </resources>
