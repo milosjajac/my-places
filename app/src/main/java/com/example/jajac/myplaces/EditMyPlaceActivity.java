@@ -66,20 +66,17 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
 
         nameEt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
                 finishedButton.setEnabled(s.length() > 0);
             }
         });
+
+        Button locationButton = (Button)findViewById(R.id.editmyplace_location_button);
+        locationButton.setOnClickListener(this);
     }
 
     @Override
@@ -103,6 +100,23 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (resultCode == Activity.RESULT_OK) {
+                String lon = data.getExtras().getString("lon");
+                EditText lonEt = (EditText)findViewById(R.id.editmyplace_long_edit);
+                lonEt.setText(lon);
+                String lat = data.getExtras().getString("lat");
+                EditText latEt = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                latEt.setText(lat);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -136,6 +150,10 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
             case R.id.editmyplace_cancel_button:
                 setResult(Activity.RESULT_CANCELED);
                 finish();
+                break;
+            case R.id.editmyplace_location_button:
+                Intent i = new Intent(this, MyPlacesMapActivity.class);
+                startActivityForResult(i, 1);
                 break;
         }
     }
