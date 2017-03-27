@@ -153,6 +153,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.editmyplace_location_button:
                 Intent i = new Intent(this, MyPlacesMapActivity.class);
+                i.putExtra("state", MyPlacesMapActivity.SELECT_COORDINATES);
                 startActivityForResult(i, 1);
                 break;
         }

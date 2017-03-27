@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         } else if (id == R.id.new_place_item) {
             Intent i = new Intent(this, EditMyPlaceActivity.class);
+            i.putExtra("state", MyPlacesMapActivity.SHOW_MAP);
             startActivityForResult(i, NEW_PLACE);
         } else if (id == R.id.my_places_item) {
             Intent i = new Intent(this, MyPlacesList.class);
