@@ -2,10 +2,9 @@ package com.example.jajac.myplaces;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,9 +30,10 @@ public class ViewMyPlaceActivity extends AppCompatActivity {
             position = positionBundle.getInt("position");
         }
         catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("ViewMyPlaceActivity", e.getMessage());
             finish();
         }
+
         if (position >= 0) {
             MyPlace place = MyPlacesData.getInstance().getPlace(position);
             TextView twName = (TextView)findViewById(R.id.viewmyplace_name_text);
@@ -62,18 +62,22 @@ public class ViewMyPlaceActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.show_map_item) {
-            Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.my_places_item) {
-            Intent i = new Intent(this, MyPlacesList.class);
-            startActivity(i);
-        } else if (id == R.id.about_item) {
-            Intent i = new Intent(this, About.class);
-            startActivity(i);
+        Intent i;
+        switch (item.getItemId()) {
+            case R.id.show_map_item:
+                i = new Intent(this, MyPlacesMapActivity.class);
+                i.putExtra("state", MyPlacesMapActivity.SHOW_MAP);
+                startActivity(i);
+                break;
+            case R.id.my_places_item:
+                i = new Intent(this, MyPlacesList.class);
+                startActivity(i);
+                break;
+            case R.id.about_item:
+                i = new Intent(this, About.class);
+                startActivity(i);
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
