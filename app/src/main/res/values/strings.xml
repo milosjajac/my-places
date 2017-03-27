@@ -29,7 +29,7 @@
     <string name="title_activity_view_my_place">View place</string>
     <string name="viewmyplace_finished_label">OK</string>
 
-    <string name="title_activity_my_places_map">MyPlacesMapActivity</string>
+    <string name="title_activity_my_places_map">Map</string>
     <string name="myplacesmap_select_loc_label">Select location</string>
     <string name="myplacesmap_cancel_label">Cancel</string>
 </resources>

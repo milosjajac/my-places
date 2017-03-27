@@ -3,10 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.jajac.myplaces.ViewMyPlaceActivity">
-    <item android:id="@+id/show_map_item" android:title="@string/action_show_map"
-        android:orderInCategory="100" app:showAsAction="ifRoom" android:icon="@drawable/ic_action_map" />
-    <item android:id="@+id/my_places_item" android:title="@string/action_my_places"
-        android:orderInCategory="100" app:showAsAction="ifRoom" android:icon="@drawable/ic_action_view_list" />
-    <item android:id="@+id/about_item" android:title="@string/action_about"
-        android:orderInCategory="100" app:showAsAction="never" android:icon="@drawable/ic_action_about" />
+    <item
+        android:id="@+id/show_map_item"
+        android:title="@string/action_show_map"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_map"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/my_places_item"
+        android:title="@string/action_my_places"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_view_list"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/about_item"
+        android:title="@string/action_about"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_about"
+        app:showAsAction="never" />
 </menu>
