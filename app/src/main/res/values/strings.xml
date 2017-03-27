@@ -24,4 +24,5 @@
 
     <string name="title_activity_view_my_place">View place</string>
     <string name="viewmyplace_finished_label">OK</string>
+    <string name="title_activity_my_places_map">MyPlacesMapActivity</string>
 </resources>
