@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.show_map_item) {
             Intent i = new Intent(this, MyPlacesMapActivity.class);
+            i.putExtra("state", MyPlacesMapActivity.SHOW_MAP);
             startActivity(i);
         } else if (id == R.id.new_place_item) {
             Intent i = new Intent(this, EditMyPlaceActivity.class);
-            i.putExtra("state", MyPlacesMapActivity.SHOW_MAP);
             startActivityForResult(i, NEW_PLACE);
         } else if (id == R.id.my_places_item) {
             Intent i = new Intent(this, MyPlacesList.class);

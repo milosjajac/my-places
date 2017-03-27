@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -86,31 +87,37 @@ public class MyPlacesMapActivity extends AppCompatActivity implements OnMapReady
                 String placeLat = mapBundle.getString("lat");
                 String placeLon = mapBundle.getString("lon");
                 placeLoc = new LatLng(Double.parseDouble(placeLat), Double.parseDouble(placeLon));
-            } else if (state == SHOW_MAP) {
-                // either try and catch SecurityException or ask the user for permission
-                try {
-                    this.map.setMyLocationEnabled(true);
-                } catch (SecurityException e) {
-                    Toast.makeText(this, "Needs permission", Toast.LENGTH_LONG).show();
-                }
-            } else if (state == SELECT_COORDINATES) {
-                this.map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        if (state == SELECT_COORDINATES && selCoordsEnabled) {
-                            String lon = Double.toString(latLng.longitude);
-                            String lat = Double.toString(latLng.latitude);
-                            Intent locationIntent = new Intent();
-                            locationIntent.putExtra("lon", lon);
-                            locationIntent.putExtra("lat", lat);
-                            setResult(Activity.RESULT_OK, locationIntent);
-                            finish();
-                        }
-                    }
-                });
             }
         }
+
+        if (state == SHOW_MAP) {
+            // either try and catch SecurityException or ask the user for permission
+            try {
+                this.map.setMyLocationEnabled(true);
+            } catch (SecurityException e) {
+                Toast.makeText(this, "Needs permission", Toast.LENGTH_LONG).show();
+            }
+        } else if (state == SELECT_COORDINATES) {
+            this.map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                if (state == SELECT_COORDINATES && selCoordsEnabled) {
+                    String lon = Double.toString(latLng.longitude);
+                    String lat = Double.toString(latLng.latitude);
+                    Intent locationIntent = new Intent();
+                    locationIntent.putExtra("lon", lon);
+                    locationIntent.putExtra("lat", lat);
+                    setResult(Activity.RESULT_OK, locationIntent);
+                    finish();
+                }
+                }
+            });
+        } else {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLoc, 15));
+        }
+
         addMyPlacesMarkers();
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {

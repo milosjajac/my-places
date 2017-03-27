@@ -54,6 +54,7 @@ public class MyPlacesList extends AppCompatActivity {
                 menu.add(0, 1, 1, "View place");
                 menu.add(0, 2, 2, "Edit place");
                 menu.add(0, 3, 3, "Delete place");
+                menu.add(0, 4, 4, "Show on map");
             }
         });
     }
@@ -64,17 +65,25 @@ public class MyPlacesList extends AppCompatActivity {
         Bundle positionBundle = new Bundle();
         positionBundle.putInt("position", info.position);
         Intent i = null;
-        if (item.getItemId() == 1) {
+        int itemId = item.getItemId();
+        if (itemId == 1) {
             i = new Intent(this, ViewMyPlaceActivity.class);
             i.putExtras(positionBundle);
             startActivity(i);
-        } else if (item.getItemId() == 2) {
+        } else if (itemId == 2) {
             i = new Intent(this, EditMyPlaceActivity.class);
             i.putExtras(positionBundle);
             startActivityForResult(i, 1);
-        } else if (item.getItemId() == 3) {
+        } else if (itemId == 3) {
             MyPlacesData.getInstance().deletePlace(info.position);
             setList();
+        } else if (itemId == 4) {
+            i = new Intent(this, MyPlacesMapActivity.class);
+            i.putExtra("state", MyPlacesMapActivity.CENTER_PLACE_ON_MAP);
+            MyPlace place = MyPlacesData.getInstance().getPlace(info.position);
+            i.putExtra("lat", place.getLatitude());
+            i.putExtra("lon", place.getLongitude());
+            startActivityForResult(i, 2);
         }
         return super.onContextItemSelected(item);
     }
