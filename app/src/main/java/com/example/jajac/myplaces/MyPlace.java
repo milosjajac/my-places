@@ -1,19 +1,21 @@
 package com.example.jajac.myplaces;
 
-/**
- * Created by jajac on 3/20/17.
- */
-
 public class MyPlace {
-    String name;
-    String description;
-    String longitude;
-    String latitude;
-    long ID;
+    private String name;
+    private String description;
+    private String latitude;
+    private String longitude;
+    private long ID;
 
-    public MyPlace(String name, String desc) {
+    public MyPlace(String name, String desc, String latitude, String longitude) {
         this.name = name;
         this.description = desc;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public MyPlace(String name, String desc) {
+        this(name, desc, "", "");
     }
 
     public MyPlace(String name) {

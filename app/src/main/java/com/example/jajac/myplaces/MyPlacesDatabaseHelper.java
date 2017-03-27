@@ -6,10 +6,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by jajac on 3/21/17.
- */
-
 public class MyPlacesDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE = "create table " + MyPlacesDBAdapter.DATABASE_TABLE + " ("
@@ -17,19 +13,18 @@ public class MyPlacesDatabaseHelper extends SQLiteOpenHelper {
             + MyPlacesDBAdapter.PLACE_NAME + " text unique not null, "
             + MyPlacesDBAdapter.PLACE_DESCRIPTION + " text, "
             + MyPlacesDBAdapter.PLACE_LONG + " text, "
-            +MyPlacesDBAdapter.PLACE_LAT + " text);";
+            + MyPlacesDBAdapter.PLACE_LAT + " text);";
 
     public MyPlacesDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(DATABASE_CREATE);
         } catch (SQLiteException e) {
-            Log.v("MyPlacesDatabaseHelper", e.getMessage());
+            Log.e("MyPlacesDatabaseHelper", e.getMessage());
         }
     }
 

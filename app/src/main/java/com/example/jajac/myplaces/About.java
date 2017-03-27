@@ -6,10 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by jajac on 3/20/17.
- */
-
 public class About extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -2,20 +2,12 @@ package com.example.jajac.myplaces;
 
 import java.util.ArrayList;
 
-/**
- * Created by jajac on 3/20/17.
- */
-
 public class MyPlacesData {
     private ArrayList<MyPlace> myPlaces;
-    MyPlacesDBAdapter dbAdapter;
+    private MyPlacesDBAdapter dbAdapter;
 
     private MyPlacesData() {
         myPlaces = new ArrayList<MyPlace>();
-//        myPlaces.add(new MyPlace("Tvrdjava", "Opis tvrdjave."));
-//        myPlaces.add(new MyPlace("Park Svetog Save", "Na bulevaru Nemanjica."));
-//        myPlaces.add(new MyPlace("Zona 3"));
-
         dbAdapter = new MyPlacesDBAdapter(MyPlacesApplication.getContext());
         dbAdapter.open();
         this.myPlaces = dbAdapter.getAllEntries();
@@ -49,7 +41,7 @@ public class MyPlacesData {
     public void deletePlace(int index) {
         MyPlace place = myPlaces.remove(index);
         dbAdapter.open();
-        boolean success = dbAdapter.removeEntry(place.getID());
+        dbAdapter.removeEntry(place.getID());
         dbAdapter.close();
     }
 

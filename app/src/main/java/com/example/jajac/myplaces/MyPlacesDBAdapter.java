@@ -10,10 +10,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-/**
- * Created by jajac on 3/21/17.
- */
-
 public class MyPlacesDBAdapter {
     public static final String DATABASE_NAME = "MyPlacesDb";
     public static final String DATABASE_TABLE = "MyPlaces";
@@ -22,12 +18,11 @@ public class MyPlacesDBAdapter {
     public static final String PLACE_ID = "ID";
     public static final String PLACE_NAME = "Name";
     public static final String PLACE_DESCRIPTION = "Desc";
-    public static final String PLACE_LONG = "Long";
+    public static final String PLACE_LONG = "Lon";
     public static final String PLACE_LAT = "Lat";
 
-    private SQLiteDatabase db;
-
     private final Context context;
+    private SQLiteDatabase db;
     private MyPlacesDatabaseHelper dbHelper;
 
     public MyPlacesDBAdapter(Context cont) {
@@ -46,7 +41,6 @@ public class MyPlacesDBAdapter {
 
     public long insertEntry(MyPlace myPlace) {
         ContentValues contentValues = new ContentValues();
-
         contentValues.put(PLACE_NAME, myPlace.getName());
         contentValues.put(PLACE_DESCRIPTION, myPlace.getDesc());
         contentValues.put(PLACE_LONG, myPlace.getLongitude());
@@ -57,7 +51,7 @@ public class MyPlacesDBAdapter {
             id = db.insert(DATABASE_TABLE, null, contentValues);
             db.setTransactionSuccessful();
         } catch (SQLiteException e) {
-            Log.v("MyPlacesDBAdapter", e.getMessage());
+            Log.e("MyPlacesDBAdapter", e.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -71,7 +65,7 @@ public class MyPlacesDBAdapter {
             success = db.delete(DATABASE_TABLE, PLACE_ID + "=" + id, null) > 0;
             db.setTransactionSuccessful();
         } catch (SQLiteException e) {
-            Log.v("MyPlacesDBAdapter", e.getMessage());
+            Log.e("MyPlacesDBAdapter", e.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -79,20 +73,19 @@ public class MyPlacesDBAdapter {
     }
 
     public ArrayList<MyPlace> getAllEntries() {
-        ArrayList<MyPlace> myPlaces = null;
+        ArrayList<MyPlace> myPlaces = new ArrayList<MyPlace>();;
         Cursor cursor = null;
         db.beginTransaction();
         try {
             cursor = db.query(DATABASE_TABLE, null, null, null, null, null, null);
         } catch (SQLiteException e) {
-            Log.v("MyPlacesDBAdapter", e.getMessage());
+            Log.e("MyPlacesDBAdapter", e.getMessage());
         } finally {
             db.endTransaction();
         }
 
         if (cursor != null) {
-            myPlaces = new ArrayList<MyPlace>();
-            MyPlace myPlace = null;
+            MyPlace myPlace;
             while (cursor.moveToNext()) {
                 myPlace = new MyPlace(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_NAME)));
                 myPlace.setID(cursor.getLong(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_ID)));
@@ -112,7 +105,7 @@ public class MyPlacesDBAdapter {
         try {
             cursor = db.query(DATABASE_TABLE, null, PLACE_ID + "=" + id, null, null, null, null);
         } catch (SQLiteException e) {
-            Log.v("MyPlacesDBAdapter", e.getMessage());
+            Log.e("MyPlacesDBAdapter", e.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -131,14 +124,11 @@ public class MyPlacesDBAdapter {
 
     public int updateEntry(long id, MyPlace myPlace) {
         String where = PLACE_ID + "=" + id;
-
         ContentValues contentValues = new ContentValues();
-
         contentValues.put(PLACE_NAME, myPlace.getName());
         contentValues.put(PLACE_DESCRIPTION, myPlace.getDesc());
         contentValues.put(PLACE_LONG, myPlace.getLongitude());
         contentValues.put(PLACE_LAT, myPlace.getLatitude());
-
         return db.update(DATABASE_TABLE, contentValues, where, null);
     }
 }

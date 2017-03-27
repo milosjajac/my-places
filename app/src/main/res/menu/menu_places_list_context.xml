@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.jajac.myplaces.MyPlacesList">
+    <item
+        android:id="@+id/places_list_context_view_item"
+        android:title="@string/myplaceslist_context_view" />
+    <item
+        android:id="@+id/places_list_context_edit_item"
+        android:title="@string/myplaceslist_context_edit" />
+    <item
+        android:id="@+id/places_list_context_delete_item"
+        android:title="@string/myplaceslist_context_delete" />
+    <item
+        android:id="@+id/places_list_context_map_item"
+        android:title="@string/myplaceslist_context_show_map" />
+</menu>

@@ -13,6 +13,10 @@
     <string name="ok">OK</string>
 
     <string name="title_activity_my_places_list">My places list</string>
+    <string name="myplaceslist_context_view">View place</string>
+    <string name="myplaceslist_context_edit">Edit place</string>
+    <string name="myplaceslist_context_delete">Delete place</string>
+    <string name="myplaceslist_context_show_map">Show on map</string>
 
     <string name="title_activity_edit_my_place">Edit place</string>
     <string name="editmyplace_name_label">Name</string>

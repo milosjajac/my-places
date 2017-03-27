@@ -3,20 +3,20 @@ package com.example.jajac.myplaces;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class EditMyPlaceActivity extends AppCompatActivity implements View.OnClickListener {
+
+    static final int GET_LOCATION_REQUEST = 1;
 
     boolean editMode = true;
     int position = -1;
@@ -87,16 +87,21 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.show_map_item) {
-            Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.my_places_item) {
-            Intent i = new Intent(this, MyPlacesList.class);
-            startActivity(i);
-        } else if (id == R.id.about_item) {
-            Intent i = new Intent(this, About.class);
-            startActivity(i);
+        Intent i;
+        switch (item.getItemId()) {
+            case R.id.show_map_item:
+                i = new Intent(this, MyPlacesMapActivity.class);
+                i.putExtra("state", MyPlacesMapActivity.SHOW_MAP);
+                startActivity(i);
+                break;
+            case R.id.my_places_item:
+                i = new Intent(this, MyPlacesList.class);
+                startActivity(i);
+                break;
+            case R.id.about_item:
+                i = new Intent(this, About.class);
+                startActivity(i);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,17 +110,23 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (resultCode == Activity.RESULT_OK) {
-                String lon = data.getExtras().getString("lon");
-                EditText lonEt = (EditText)findViewById(R.id.editmyplace_long_edit);
-                lonEt.setText(lon);
-                String lat = data.getExtras().getString("lat");
-                EditText latEt = (EditText)findViewById(R.id.editmyplace_lat_edit);
-                latEt.setText(lat);
-            }
-        } catch (Exception e) {
-
+        // check the request code to know which activity ended
+        // it's the same request code that was sent when calling startActivityForResult
+        switch (requestCode) {
+            case GET_LOCATION_REQUEST:
+                try {
+                    if (resultCode == Activity.RESULT_OK) {
+                        String lon = data.getExtras().getString("lon");
+                        EditText lonEt = (EditText)findViewById(R.id.editmyplace_long_edit);
+                        lonEt.setText(lon);
+                        String lat = data.getExtras().getString("lat");
+                        EditText latEt = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                        latEt.setText(lat);
+                    }
+                } catch (Exception e) {
+                    Log.e("EditMyPlaceActivity", "Failed fetching location.");
+                }
+                break;
         }
     }
 
@@ -132,9 +143,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 EditText etLat = (EditText)findViewById(R.id.editmyplace_lat_edit);
                 String lat = etLat.getText().toString();
                 if (!editMode) {
-                    MyPlace place = new MyPlace(name, desc);
-                    place.setLatitude(lat);
-                    place.setLongitude(lon);
+                    MyPlace place = new MyPlace(name, desc, lat, lon);
                     MyPlacesData.getInstance().addNewPlace(place);
                 } else {
                     MyPlace place = MyPlacesData.getInstance().getPlace(position);
@@ -154,7 +163,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
             case R.id.editmyplace_location_button:
                 Intent i = new Intent(this, MyPlacesMapActivity.class);
                 i.putExtra("state", MyPlacesMapActivity.SELECT_COORDINATES);
-                startActivityForResult(i, 1);
+                startActivityForResult(i, GET_LOCATION_REQUEST);
                 break;
         }
     }
