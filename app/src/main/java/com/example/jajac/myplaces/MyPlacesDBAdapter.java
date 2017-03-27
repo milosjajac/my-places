@@ -18,7 +18,7 @@ public class MyPlacesDBAdapter {
     public static final String PLACE_ID = "ID";
     public static final String PLACE_NAME = "Name";
     public static final String PLACE_DESCRIPTION = "Desc";
-    public static final String PLACE_LONG = "Lon";
+    public static final String PLACE_LON = "Lon";
     public static final String PLACE_LAT = "Lat";
 
     private final Context context;
@@ -43,7 +43,7 @@ public class MyPlacesDBAdapter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(PLACE_NAME, myPlace.getName());
         contentValues.put(PLACE_DESCRIPTION, myPlace.getDesc());
-        contentValues.put(PLACE_LONG, myPlace.getLongitude());
+        contentValues.put(PLACE_LON, myPlace.getLongitude());
         contentValues.put(PLACE_LAT, myPlace.getLatitude());
         long id = -1;
         db.beginTransaction();
@@ -90,7 +90,7 @@ public class MyPlacesDBAdapter {
                 myPlace = new MyPlace(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_NAME)));
                 myPlace.setID(cursor.getLong(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_ID)));
                 myPlace.setDescription(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_DESCRIPTION)));
-                myPlace.setLongitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LONG)));
+                myPlace.setLongitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LON)));
                 myPlace.setLatitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LAT)));
                 myPlaces.add(myPlace);
             }
@@ -115,7 +115,7 @@ public class MyPlacesDBAdapter {
                 myPlace = new MyPlace(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_NAME)));
                 myPlace.setID(cursor.getLong(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_ID)));
                 myPlace.setDescription(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_DESCRIPTION)));
-                myPlace.setLongitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LONG)));
+                myPlace.setLongitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LON)));
                 myPlace.setLatitude(cursor.getString(cursor.getColumnIndex(MyPlacesDBAdapter.PLACE_LAT)));
             }
         }
@@ -127,7 +127,7 @@ public class MyPlacesDBAdapter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(PLACE_NAME, myPlace.getName());
         contentValues.put(PLACE_DESCRIPTION, myPlace.getDesc());
-        contentValues.put(PLACE_LONG, myPlace.getLongitude());
+        contentValues.put(PLACE_LON, myPlace.getLongitude());
         contentValues.put(PLACE_LAT, myPlace.getLatitude());
         return db.update(DATABASE_TABLE, contentValues, where, null);
     }

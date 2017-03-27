@@ -12,7 +12,7 @@ public class MyPlacesDatabaseHelper extends SQLiteOpenHelper {
             + MyPlacesDBAdapter.PLACE_ID + " integer primary key autoincrement, "
             + MyPlacesDBAdapter.PLACE_NAME + " text unique not null, "
             + MyPlacesDBAdapter.PLACE_DESCRIPTION + " text, "
-            + MyPlacesDBAdapter.PLACE_LONG + " text, "
+            + MyPlacesDBAdapter.PLACE_LON + " text, "
             + MyPlacesDBAdapter.PLACE_LAT + " text);";
 
     public MyPlacesDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
