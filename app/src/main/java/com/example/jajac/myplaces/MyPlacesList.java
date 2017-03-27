@@ -98,7 +98,7 @@ public class MyPlacesList extends AppCompatActivity {
         } else if (id == R.id.new_place_item) {
             Intent i = new Intent(this, EditMyPlaceActivity.class);
             startActivityForResult(i, NEW_PLACE);
-        } else {
+        } else if (id == R.id.about_item) {
             Intent i = new Intent(this, About.class);
             startActivity(i);
         }
