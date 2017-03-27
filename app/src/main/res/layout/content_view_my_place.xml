@@ -52,6 +52,12 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/viewmyplace_show_on_map_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewmyplace_show_on_map_label" />
+
+    <Button
         android:id="@+id/viewmyplace_finished_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

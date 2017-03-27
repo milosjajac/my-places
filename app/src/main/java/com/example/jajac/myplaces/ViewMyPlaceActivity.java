@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewMyPlaceActivity extends AppCompatActivity {
+public class ViewMyPlaceActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private int position = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +25,18 @@ public class ViewMyPlaceActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int position = -1;
         try {
             Intent listIntent = getIntent();
             Bundle positionBundle = listIntent.getExtras();
-            position = positionBundle.getInt("position");
+            this.position = positionBundle.getInt("position");
         }
         catch (Exception e) {
             Log.e("ViewMyPlaceActivity", e.getMessage());
             finish();
         }
 
-        if (position >= 0) {
-            MyPlace place = MyPlacesData.getInstance().getPlace(position);
+        if (this.position >= 0) {
+            MyPlace place = MyPlacesData.getInstance().getPlace(this.position);
             TextView twName = (TextView)findViewById(R.id.viewmyplace_name_text);
             twName.setText(place.getName());
             TextView twDesc = (TextView)findViewById(R.id.viewmyplace_desc_text);
@@ -46,12 +47,9 @@ public class ViewMyPlaceActivity extends AppCompatActivity {
             twLon.setText(place.getLongitude());
         }
         final Button finishedButton = (Button)findViewById(R.id.viewmyplace_finished_button);
-        finishedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        finishedButton.setOnClickListener(this);
+        final Button showOnMapButton = (Button)findViewById(R.id.viewmyplace_show_on_map_button);
+        showOnMapButton.setOnClickListener(this);
     }
 
     @Override
@@ -79,5 +77,22 @@ public class ViewMyPlaceActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.viewmyplace_finished_button:
+                finish();
+                break;
+            case R.id.viewmyplace_show_on_map_button:
+                Intent i = new Intent(this, MyPlacesMapActivity.class);
+                i.putExtra("state", MyPlacesMapActivity.CENTER_PLACE_ON_MAP);
+                MyPlace place = MyPlacesData.getInstance().getPlace(this.position);
+                i.putExtra("lat", place.getLatitude());
+                i.putExtra("lon", place.getLongitude());
+                startActivity(i);
+                break;
+        }
     }
 }
