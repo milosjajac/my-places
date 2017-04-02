@@ -1,8 +1,13 @@
 package com.example.jajac.myplaces;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -12,8 +17,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MyPlacesList extends AppCompatActivity {
+
+    Handler guiThread;
+    Context context;
+    ProgressDialog progressDialog;
 
     static final int NEW_PLACE = 1;
 
@@ -28,6 +41,7 @@ public class MyPlacesList extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // load places list and set item click listener
         ListView myPlacesList = (ListView)findViewById(R.id.my_places_list);
         myPlacesList.setAdapter(new ArrayAdapter<MyPlace>(this, android.R.layout.simple_list_item_1, MyPlacesData.getInstance().getMyPlaces()));
         myPlacesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,6 +54,10 @@ public class MyPlacesList extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        guiThread = new Handler();
+        context = this;
+        progressDialog = new ProgressDialog(this);
 
         registerForContextMenu(myPlacesList);
     }
@@ -82,8 +100,56 @@ public class MyPlacesList extends AppCompatActivity {
                 i.putExtra("lon", place.getLongitude());
                 startActivity(i);
                 break;
+            case R.id.places_list_context_upload_item:
+                ExecutorService transThread = Executors.newSingleThreadExecutor();
+                // only "final" variables can be used in Runnable run() method
+                final int position = info.position;
+                transThread.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        MyPlace place = MyPlacesData.getInstance().getPlace(position);
+                        guiShowProgressDialog("Sending place", "Sending " + place.getName());
+                        try {
+                            final String message = MyPlacesHTTPHelper.sendMyPlace(place);
+                            guiNotifyUser(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        guiDismissProgressDialog();
+                    }
+                });
+                break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void guiNotifyUser(final String message) {
+        guiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void guiShowProgressDialog(final String title, final String message) {
+        guiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setTitle(title);
+                progressDialog.setMessage(message);
+                progressDialog.show();
+            }
+        });
+    }
+
+    private void guiDismissProgressDialog() {
+        guiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        });
     }
 
     private void setList() {
@@ -113,6 +179,16 @@ public class MyPlacesList extends AppCompatActivity {
             case R.id.about_item:
                 i = new Intent(this, About.class);
                 startActivity(i);
+                break;
+            case R.id.server_list_item:
+                Dialog d = new MyPlacesServerList(this);
+                d.show();
+                d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        setList();
+                    }
+                });
                 break;
         }
         return super.onOptionsItemSelected(item);

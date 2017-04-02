@@ -16,6 +16,12 @@
         android:icon="@drawable/ic_action_add"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/server_list_item"
+        android:title="@string/action_server_list"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_server_list"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/about_item"
         android:title="@string/action_about"
         android:orderInCategory="100"

@@ -15,4 +15,7 @@
     <item
         android:id="@+id/places_list_context_map_item"
         android:title="@string/myplaceslist_context_show_map" />
+    <item
+        android:id="@+id/places_list_context_upload_item"
+        android:title="@string/myplacesList_context_upload" />
 </menu>
